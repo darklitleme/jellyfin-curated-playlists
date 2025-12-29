@@ -1,0 +1,112 @@
+{
+    "Metal Gym": {
+        "playlist_name": "💪 Metal Gym",
+        "genre_boost": ["metal", "metalcore", "death", "hardcore"],
+        "year_weight": 0.5,
+        "artist_weight": 2.0,
+        "skip_penalty": 4,
+        "randomness": [-0.3, 0.5],
+        "min_runtime": 120,
+        "artist_familiarity_weight": 2.0,
+        "favorite_weight": 4.0
+    },
+    "EDM Night Drive": {
+        "playlist_name": "🌌 EDM Night Drive",
+        "require_genre":["edm", "electronic", "electro", "house", "Dance","Electro House","Dubstep","Euro House"],
+        "genre_boost": ["edm", "electronic", "electro", "house", "Dance", "progressive"],
+        "year_weight": 0.4,
+        "artist_weight": 0.5,
+        "skip_penalty": 1.0,
+        "randomness": [-0.1, 0.6],
+        "min_runtime": 180,
+        "favorite_weight": 2.0
+    },
+    "Discovery": {
+        "playlist_name": "🔍 Discovery",
+        "genre_boost": [],
+        "year_weight": 0.1,
+        "artist_weight": -1,      
+        "skip_penalty": 0.5,
+        "randomness": [-0.4, 1.2],   
+        "min_runtime": 120,
+        "prefer_unplayed": "True",
+        "artist_familiarity_weight": -1.0,
+        "favorite_weight": -6.0
+    },
+
+    "Chill": {
+        "playlist_name": "🌙 Chill",
+        "require_genre": [],
+        "genre_boost": ["chill", "ambient", "downtempo", "lofi", "trip hop"],
+        "year_weight": 0.2,
+        "artist_weight": 0.3,
+        "skip_penalty": 1.5,
+        "randomness": [-0.2, 0.3],
+        "min_runtime": 240,
+        "energy_cap": 0.5,
+        "artist_familiarity_weight": 0.7
+    },
+
+    "Favourites": {
+        "playlist_name": "⭐ Favourites",
+        "require_genre": [],
+        "genre_boost": [],
+        "year_weight": 0.6,
+        "artist_weight": 2.5,
+        "skip_penalty": 6,
+        "randomness": [-0.1, 0.2],
+        "min_runtime": 120,
+        "prefer_played": "True",
+        "Prefer_Recently_Played": "True",
+        "artist_familiarity_weight": 3.0,
+        "favorite_weight": 10.0,
+        "replay_bonus": 5.0
+    },
+
+    "Daily Drive": {
+        "playlist_name": "🚗 Daily Drive",
+        "require_genre": [],
+        "genre_boost": ["rock", "indie", "electronic", "alternative"],
+        "year_weight": 0.3,
+        "artist_weight": 0.8,
+        "skip_penalty": 1.0,
+        "randomness": [-0.1, 0.4],
+        "min_runtime": 150,
+        "favorite_weight": 3.0
+    },
+
+    "Focus": {
+        "playlist_name": "🎧 Focus",
+        "require_genre": [],
+        "genre_boost": ["instrumental", "ambient", "electronic"],
+        "year_weight": 0.1,
+        "artist_weight": 0.2,
+        "skip_penalty": 2.0,
+        "randomness": [-0.3, 0.2],
+        "min_runtime": 180,
+        "energy_cap": 0.4
+    },
+    "Favorites": {
+        "playlist_name": "<3 Hearted Favorites <3",
+        "require_favorite": "True",
+        "favorite_weight": 10.0,
+        "randomness": [-0.2, 0.2],
+        "min_runtime": 0
+    },
+    "Hip-Hop / R&B": {
+        "playlist_name": "🎤 Hip-Hop / R&B",
+        "require_genre":[
+        "hip hop", "rap", "r&b", "rb", "trap",
+        "neo soul", "soul", "lofi", "cloud rap"],
+        "genre_boost": ["hip hop", "rap", "r&b", "rb", "trap",
+        "neo soul", "soul", "lofi", "cloud rap"],
+        "artist_weight": 0.5,
+        "skip_penalty": 2.0,
+        "randomness": [-0.1, 0.6],
+        "min_runtime": 180,
+        "favorite_weight": 3.0,
+        "energy_cap": 0.7,
+        "replay_bonus": 2
+    }
+}
+    
