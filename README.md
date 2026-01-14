@@ -12,11 +12,21 @@ Automatically generates smart playlists for each Jellyfin user based on:
 - Auto-generated "vibes"
 - Safe to run daily via cron
 - No plugins or Jellyfin mods required
+- Skips already analysed tracks
+- Extracts features:
+  - RMS & energy
+  - BPM & beat confidence
+  - Key, scale, strength
+  - Bass energy & danceability
+- CPU-friendly with configurable throttling
+
 
 ## Requirements
-- Jellyfin 10.8+
-- Python 3.9+
-- Jellyfin API key
+- Python 3.11+
+- [Essentia](https://essentia.upf.edu/)
+- NumPy
+- psutil
+- python-dotenv
 
 ## Editing Vibe Profiles (Vibes.json)
   
@@ -25,19 +35,34 @@ Automatically generates smart playlists for each Jellyfin user based on:
   Structure of a vibe
   
   Each vibe is a JSON object like this:
-  
-  "Metal Gym": {
-      "playlist_name": "💪 Metal Gym",
-      "require_genre": ["metal", "metalcore", "death", "hardcore"],
-      "genre_boost": ["metal", "metalcore", "death", "hardcore"],
-      "year_weight": 0.5,
-      "artist_weight": 2.0,
-      "skip_penalty": 4,
-      "randomness": [-0.3, 0.5],
-      "min_runtime": 120,
-      "artist_familiarity_weight": 2.0,
-      "favorite_weight": 4.0
-  }
+
+  "EDM Night Drive": {
+    "playlist_name": "🌌 EDM Night Drive",
+    "require_genre": ["edm", "electronic", "electro", "house", "dance"],
+    "genre_boost": ["edm", "electronic", "house", "progressive"],
+    "preferred_moods": {
+      "electronic": 1,
+      "happy": 0.5,
+      "party": 0.4,
+      "aggressive": -0.5,
+      "sad": -0.3
+    },
+    "bpm_target": 124,
+    "bpm_range": 18,
+    "bpm_weight": 3,
+    "year_weight": 0.4,
+    "artist_weight": 0.5,
+    "artist_familiarity_weight": 1.0,
+    "favorite_weight": 2.0,
+    "skip_penalty": 1.0,
+    "randomness": [-0.1, 0.6],
+    "min_runtime": 180,
+    "energy_cap": 0.9,
+    "bass_weight": 1.0,
+    "dacability_weight": 0.5,
+    "key_weight": 0.2,
+    "prefer_played": "True"
+  },
   
   
   Explanation of fields:
@@ -59,18 +84,40 @@ Automatically generates smart playlists for each Jellyfin user based on:
   prefer_recently_played	"True" to give bonus to songs played recently.
   replay_bonus	Bonus applied based on play count.
 
-
 ## Installation
+1. Clone the repo:
 ```bash
-git clone https://github.com/darklitleme/jellyfin-curated-playlists.git
-cd jellyfin-curated-playlists
-python3 -m venv venv
-source venv/bin/activate
+git clone https://github.com/yourusername/curated-music-analysis.git
+cd curated-music-analysis
+
+    Create a virtual environment:
+
+python -m venv venv
+source venv/bin/activate  # Linux / macOS
+venv\Scripts\activate     # Windows
+
+    Install dependencies:
+
 pip install -r requirements.txt
 
-nano .env
+    Create a .env file in the root:
+JELLYFIN_URL=http://192.168.1.1:8096
+JELLYFIN_API_KEY=d12345
+PATH_TO_MUSIC_LIBRARY=/full/path/to/your/music/library   - leave this black if you dont want to use Essentia
+MAX_CPU_PERCENT=75.0
 
+Usage
 
-Your .env should look like the below:
-JELLYFIN_URL=jellyfin ip address here eg : 192.168.1.1:8096
-JELLYFIN_API_KEY=Jelly fin API Key here eg : jgh3jhgy43jy4gj3h4g
+python CuratedMusic.py
+
+    The script will load your Jellyfin music dump and analyse unprocessed tracks.
+
+    Progress is saved in analysed_audio.json.
+
+Notes
+
+    Tracks that fail to load or analyse are skipped but logged.
+
+    Large continuous mixes may fail rhythm extraction due to buffer limits.
+
+    Already analysed tracks are skipped automatically.
